@@ -4,12 +4,9 @@
 
 <br />
 
-I'm a **full-stack developer & automation engineer** from Bataan, Philippines 🇵🇭 — a Cum Laude CS grad (Data Science) who likes the part of the job where requirements get messy: old spreadsheets, inconsistent user input, account migrations, and AI output that still needs a safety check. I map the real rules first, then turn them into software that keeps working after launch day.
+<img src="assets/about.svg" width="100%" alt="About me — I'm a full-stack developer & automation engineer from Bataan, Philippines, and a Cum Laude CS grad (Data Science) who likes the part of the job where requirements get messy: old spreadsheets, inconsistent user input, account migrations, and AI output that still needs a safety check. I map the real rules first, then turn them into software that keeps working after launch day." />
 
-- 🛠️ &nbsp;Freelancing on production WordPress, Python automation and Google Workspace APIs for **AGG Doors**
-- 🏠 &nbsp;Building **Katiwala**, a home-services marketplace for Filipino households
-- 🎓 &nbsp;Best Thesis Paper & Presenter at **IRCITE 2026** for license-plate deblurring research
-- 💬 &nbsp;Ask me about: business systems, automation, React / Next.js, Django, and applied AI
+<img src="assets/now.svg" width="100%" alt="Right now — Freelancing on production WordPress, Python automation and Google Workspace APIs for AGG Doors. Building Katiwala, a home-services marketplace for Filipino households. Best Thesis Paper & Presenter at IRCITE 2026 for license-plate deblurring research. Ask me about: business systems, automation, React / Next.js, Django, and applied AI." />
 
 <img src="assets/loop.svg" width="100%" alt="My production loop: Understand (rules before interface), Build (failure modes included), Verify (read back the result), repeat." />
 
