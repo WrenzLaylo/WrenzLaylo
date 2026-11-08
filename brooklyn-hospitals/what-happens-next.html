@@ -1,0 +1,336 @@
+<title>What Happens Next Section</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* Layout: left, the three steps as one connected timeline (order is real, so numbers stay).
+   Right, the call card is the bold moment: navy, phone number first, trust points as a checklist.
+   Single light theme on purpose, to match the host law-firm site. Same tokens as the hospitals section. */
+.whn {
+  --ink: #10233d;          /* brand navy */
+  --ink-2: #1c3a60;        /* navy hover */
+  --text: #3a4759;
+  --muted: #6a778b;
+  --line: #d3dae4;
+  --wash: #f6f8fb;         /* section ground, as on the live site */
+  --paper: #ffffff;
+  --amber: #f4b860;        /* highlight on navy, shared with the 90-day panel */
+  --on-ink: #dfe6f0;       /* body text on navy */
+  --on-ink-muted: #9fb0c6;
+  --live: #4fd18b;         /* "lines open" status dot */
+
+  --display: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --body: "Source Sans 3", "Source Sans Pro", "Segoe UI", Arial, sans-serif;
+
+  color-scheme: light;
+  background: var(--wash);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  padding-block: clamp(48px, 7vw, 96px);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+body { background: #f6f8fb; margin: 0; }
+.whn *, .whn *::before, .whn *::after { box-sizing: border-box; }
+
+.whn__inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(32px, 6vw, 88px);
+  align-items: center;
+}
+
+/* ---------- Steps ---------- */
+.whn__steps-col { min-width: 0; display: flex; flex-direction: column; gap: 32px; }
+.whn__eyebrow {
+  margin: 0 0 12px;
+  font-family: var(--display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.whn h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.4vw, 2.625rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.whn__steps { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+.whn__step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 20px;
+  padding-bottom: 28px;
+}
+/* connector line between markers */
+.whn__step::before {
+  content: "";
+  position: absolute;
+  left: 21px;
+  top: 48px;
+  bottom: 4px;
+  width: 2px;
+  background: var(--line);
+}
+.whn__step:last-child { padding-bottom: 0; }
+.whn__step:last-child::before { display: none; }
+.whn__num {
+  width: 44px; height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.whn__step:first-child .whn__num { background: var(--ink); color: #ffffff; }
+.whn__step h3 {
+  margin: 9px 0 4px;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.1875rem;
+  line-height: 1.35;
+  color: var(--ink);
+}
+.whn__step p { margin: 0; max-width: 52ch; text-wrap: pretty; }
+
+.whn__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.whn__assure {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--ink);
+}
+.whn__link {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.whn__link:hover { text-decoration-thickness: 2px; }
+
+/* ---------- Call card ---------- */
+.whn__card {
+  min-width: 0;
+  background: var(--ink);
+  color: var(--on-ink);
+  border-radius: 8px;
+  padding: clamp(28px, 4vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-shadow: 0 24px 48px -24px rgba(16, 35, 61, 0.45);
+}
+.whn__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-family: var(--display);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--on-ink);
+}
+.whn__dot {
+  position: relative;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--live);
+}
+.whn__dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--live);
+  animation: whn-pulse 2.4s ease-out infinite;
+}
+@keyframes whn-pulse {
+  0% { transform: scale(1); opacity: .6; }
+  100% { transform: scale(3); opacity: 0; }
+}
+.whn__card h3 {
+  margin: 0 0 6px;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #ffffff;
+}
+.whn__card-intro p { margin: 0; color: var(--on-ink); }
+
+.whn__phone {
+  display: block;
+  text-decoration: none;
+  color: #ffffff;
+  border-radius: 6px;
+}
+.whn__phone-vanity {
+  display: block;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.25rem, 4.2vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.whn__phone-vanity em { font-style: normal; color: var(--amber); }
+.whn__phone-digits {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--display);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--on-ink-muted);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+.whn__phone:hover .whn__phone-vanity { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+
+.whn__trust {
+  list-style: none;
+  margin: 0;
+  padding: 20px 0;
+  border-top: 1px solid rgba(255,255,255,0.14);
+  border-bottom: 1px solid rgba(255,255,255,0.14);
+  display: grid;
+  gap: 10px;
+}
+.whn__trust li { display: flex; align-items: center; gap: 12px; color: #ffffff; }
+.whn__trust svg { flex: none; color: var(--amber); }
+
+.whn__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 24px;
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--ink);
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background-color .15s ease;
+}
+.whn__btn:hover { background: #e8eef6; }
+
+.whn a:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 3px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 880px) {
+  .whn__inner { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 420px) {
+  .whn__step { grid-template-columns: 40px minmax(0, 1fr); gap: 16px; }
+  .whn__num { width: 40px; height: 40px; }
+  .whn__step::before { left: 19px; top: 44px; }
+  .whn__step h3 { margin-top: 7px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .whn__dot::after { animation: none; }
+  .whn__btn { transition: none; }
+}
+</style>
+
+<section class="whn" aria-labelledby="whn-title">
+  <div class="whn__inner">
+
+    <div class="whn__steps-col">
+      <div>
+        <p class="whn__eyebrow">Your free consultation</p>
+        <h2 id="whn-title">What happens next</h2>
+      </div>
+
+      <ol class="whn__steps">
+        <li class="whn__step">
+          <span class="whn__num" aria-hidden="true">1</span>
+          <div>
+            <h3>We listen to your story</h3>
+            <p>Tell us about the pregnancy, the delivery, and your child's care since. Take as long as you need.</p>
+          </div>
+        </li>
+        <li class="whn__step">
+          <span class="whn__num" aria-hidden="true">2</span>
+          <div>
+            <h3>We help you understand what happened</h3>
+            <p>We gather the medical records and review them to see whether something went wrong during your child's birth.</p>
+          </div>
+        </li>
+        <li class="whn__step">
+          <span class="whn__num" aria-hidden="true">3</span>
+          <div>
+            <h3>We explain your family's options</h3>
+            <p>You get a plain answer about whether you have a case and which deadlines apply. Then you decide what to do.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="whn__foot">
+        <p class="whn__assure">
+          <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" d="M10 1.5 3 4.3v5.1c0 4.3 3 8.1 7 9.1 4-1 7-4.8 7-9.1V4.3L10 1.5Zm-1.2 11.8L5.6 10l1.2-1.2 2 2 4.4-4.4 1.2 1.2-5.6 5.7Z"/></svg>
+          No pressure, no obligation
+        </p>
+        <a class="whn__link" href="/brooklyn-birth-injury-lawyer">About our Brooklyn birth injury lawyers</a>
+      </div>
+    </div>
+
+    <aside class="whn__card" aria-labelledby="whn-call">
+      <p class="whn__status"><span class="whn__dot" aria-hidden="true"></span>Lines open 24/7</p>
+
+      <div class="whn__card-intro">
+        <h3 id="whn-call">Prefer to talk?</h3>
+        <p>We're here to listen when you're ready.</p>
+      </div>
+
+      <a class="whn__phone" href="tel:+18339924784" aria-label="Call 833-99-BIRTH, that is 833-992-4784">
+        <span class="whn__phone-vanity">833-99-<em>BIRTH</em></span>
+        <span class="whn__phone-digits">(833) 992-4784</span>
+      </a>
+
+      <ul class="whn__trust">
+        <li><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="m4 10.5 4 4 8-9"/></svg>Free consultation</li>
+        <li><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="m4 10.5 4 4 8-9"/></svg>No fees unless we win</li>
+      </ul>
+
+      <a class="whn__btn" href="/request-a-call-back">Request a call back</a>
+    </aside>
+
+  </div>
+</section>
