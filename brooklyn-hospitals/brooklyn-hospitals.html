@@ -1,0 +1,373 @@
+<title>Brooklyn Hospitals Section</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* Layout: two columns. Left: a sticky intro with the 90-day deadline as the one bold moment.
+   Right: a directory you scan by hospital name, grouped public vs. other.
+   Single light theme on purpose, to match the host law-firm site. */
+.bkh {
+  --ink: #10233d;          /* brand navy: headings, deadline panel */
+  --text: #3a4759;         /* body copy */
+  --muted: #6a778b;        /* meta: neighborhoods, notes */
+  --line: #dde2ea;         /* row dividers */
+  --wash: #f2f5f9;         /* row hover, cool-tinted */
+  --paper: #ffffff;
+  --amber: #f4b860;        /* deadline highlight on navy */
+  --amber-ink: #8a4b0c;    /* deadline tag text on light */
+  --amber-wash: #fdf2e2;
+
+  --display: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --body: "Source Sans 3", "Source Sans Pro", "Segoe UI", Arial, sans-serif;
+
+  color-scheme: light;
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  padding-block: clamp(48px, 7vw, 96px);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+body { background: #ffffff; margin: 0; }
+.bkh *, .bkh *::before, .bkh *::after { box-sizing: border-box; }
+
+.bkh__inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(32px, 6vw, 88px);
+  align-items: start;
+}
+
+/* ---------- Intro column ---------- */
+.bkh__intro {
+  position: sticky;
+  top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+.bkh__eyebrow {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.bkh h2 {
+  margin: -8px 0 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.4vw, 2.625rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.bkh__lead {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: 36ch;
+  text-wrap: pretty;
+}
+.bkh__body { margin: 0; max-width: 42ch; text-wrap: pretty; }
+
+/* The 90-day panel: the one bold element */
+.bkh__deadline {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+  align-items: center;
+  background: var(--ink);
+  color: #dfe6f0;
+  border-radius: 6px;
+  padding: 22px 24px;
+}
+.bkh__days {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-right: 20px;
+  border-right: 1px solid rgba(255,255,255,0.18);
+  font-family: var(--display);
+  color: var(--amber);
+  line-height: 1;
+}
+.bkh__days b {
+  font-size: 2.75rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.bkh__days span {
+  margin-top: 6px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.bkh__deadline-title {
+  margin: 0 0 4px;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1rem;
+  color: #ffffff;
+}
+.bkh__deadline p:last-child { margin: 0; font-size: 0.9375rem; line-height: 1.5; }
+
+.bkh__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-top: 4px;
+}
+.bkh__btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 6px;
+  background: var(--ink);
+  color: #ffffff;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  transition: background-color .15s ease;
+}
+.bkh__btn:hover { background: #1c3a60; }
+.bkh__link {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.bkh__link:hover { text-decoration-thickness: 2px; }
+
+/* ---------- Directory column ---------- */
+.bkh__directory { display: flex; flex-direction: column; gap: 48px; min-width: 0; }
+.bkh__group-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 12px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--ink);
+}
+.bkh h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.bkh__count {
+  font-family: var(--display);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.bkh__tag {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--amber-wash);
+  color: var(--amber-ink);
+  font-family: var(--display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.bkh__tag::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.bkh__list { list-style: none; margin: 0; padding: 0; }
+.bkh__list li { border-bottom: 1px solid var(--line); }
+.bkh__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 20px;
+  align-items: center;
+  gap: 4px 20px;
+  padding: 16px 12px;
+  margin: 0 -12px;
+  border-radius: 4px;
+  color: inherit;
+  text-decoration: none;
+  transition: background-color .15s ease;
+}
+.bkh__row:hover { background: var(--wash); }
+.bkh__name {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.35;
+  color: var(--ink);
+  min-width: 0;
+}
+.bkh__name small {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+.bkh__hood {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9375rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.bkh__hood svg { flex: none; }
+.bkh__arrow {
+  color: var(--muted);
+  transition: transform .2s ease, color .2s ease;
+}
+.bkh__row:hover .bkh__arrow { transform: translateX(3px); color: var(--ink); }
+
+.bkh a:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 2px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 880px) {
+  .bkh__inner { grid-template-columns: minmax(0, 1fr); }
+  .bkh__intro { position: static; }
+  .bkh__lead, .bkh__body { max-width: 60ch; }
+}
+@media (max-width: 520px) {
+  .bkh__row { grid-template-columns: minmax(0, 1fr) 20px; }
+  .bkh__hood { grid-column: 1; grid-row: 2; }
+  .bkh__arrow { grid-column: 2; grid-row: 1 / span 2; }
+  .bkh__tag { margin-left: 0; }
+  .bkh__deadline { padding: 20px; gap: 16px; }
+  .bkh__days { padding-right: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bkh__row, .bkh__arrow, .bkh__btn { transition: none; }
+}
+</style>
+
+<section class="bkh" aria-labelledby="bkh-title">
+  <div class="bkh__inner">
+
+    <header class="bkh__intro">
+      <p class="bkh__eyebrow">Birth injury · Brooklyn, NY</p>
+      <h2 id="bkh-title">Hospitals in Brooklyn</h2>
+      <p class="bkh__lead">Brooklyn has ten hospitals with labor, delivery, and newborn care, more than any other borough in New York City.</p>
+      <p class="bkh__body">Birth injuries can happen at any of them. If your child was hurt at one of these hospitals, we can help you find out what happened.</p>
+
+      <aside class="bkh__deadline" aria-label="Deadline for public hospitals">
+        <div class="bkh__days" aria-hidden="true"><b>90</b><span>days</span></div>
+        <div>
+          <p class="bkh__deadline-title">Public hospitals have a shorter deadline</p>
+          <p>If the injury happened at an NYC Health + Hospitals facility, you may need to file a Notice of Claim within 90 days.</p>
+        </div>
+      </aside>
+
+      <div class="bkh__actions">
+        <a class="bkh__btn" href="/contact">Get a free case review</a>
+        <a class="bkh__link" href="/brooklyn-hospital-guide">Read our hospital guide</a>
+      </div>
+    </header>
+
+    <div class="bkh__directory">
+
+      <div class="bkh__group">
+        <div class="bkh__group-head">
+          <h3>NYC Health + Hospitals</h3>
+          <span class="bkh__count">3 hospitals</span>
+          <span class="bkh__tag">Public · 90-day notice</span>
+        </div>
+        <ul class="bkh__list">
+          <li><a class="bkh__row" href="/brooklyn-hospital-guide#kings-county">
+            <span class="bkh__name">Kings County</span>
+            <span class="bkh__hood"><svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M6 0a6 6 0 0 0-6 6c0 4.2 6 8 6 8s6-3.8 6-8a6 6 0 0 0-6-6Zm0 8.2A2.2 2.2 0 1 1 6 3.8a2.2 2.2 0 0 1 0 4.4Z"/></svg>East Flatbush</span>
+            <svg class="bkh__arrow" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" d="M4 10h11m-4-4 4 4-4 4"/></svg>
+          </a></li>
+          <li><a class="bkh__row" href="/brooklyn-hospital-guide#south-brooklyn-health">
+            <span class="bkh__name">South Brooklyn Health<small>Formerly Coney Island Hospital</small></span>
+            <span class="bkh__hood"><svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M6 0a6 6 0 0 0-6 6c0 4.2 6 8 6 8s6-3.8 6-8a6 6 0 0 0-6-6Zm0 8.2A2.2 2.2 0 1 1 6 3.8a2.2 2.2 0 0 1 0 4.4Z"/></svg>Coney Island</span>
+            <svg class="bkh__arrow" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" d="M4 10h11m-4-4 4 4-4 4"/></svg>
+          </a></li>
+          <li><a class="bkh__row" href="/brooklyn-hospital-guide#woodhull">
+            <span class="bkh__name">Woodhull</span>
+            <span class="bkh__hood"><svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M6 0a6 6 0 0 0-6 6c0 4.2 6 8 6 8s6-3.8 6-8a6 6 0 0 0-6-6Zm0 8.2A2.2 2.2 0 1 1 6 3.8a2.2 2.2 0 0 1 0 4.4Z"/></svg>Bedford-Stuyvesant</span>
+            <svg class="bkh__arrow" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" d="M4 10h11m-4-4 4 4-4 4"/></svg>
+          </a></li>
+        </ul>
+      </div>
+
+      <div class="bkh__group">
+        <div class="bkh__group-head">
+          <h3>Other Brooklyn hospitals</h3>
+          <span class="bkh__count">7 hospitals</span>
+        </div>
+        <ul class="bkh__list">
+          <li><a class="bkh__row" href="/brooklyn-hospital-guide#brookdale">
+            <span class="bkh__name">Brookdale University Hospital</span>
+            <span class="bkh__hood"><svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M6 0a6 6 0 0 0-6 6c0 4.2 6 8 6 8s6-3.8 6-8a6 6 0 0 0-6-6Zm0 8.2A2.2 2.2 0 1 1 6 3.8a2.2 2.2 0 0 1 0 4.4Z"/></svg>Brownsville</span>
+            <svg class="bkh__arrow" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" d="M4 10h11m-4-4 4 4-4 4"/></svg>
+          </a></li>
+          <li><a class="bkh__row" href="/brooklyn-hospital-guide#brooklyn-hospital-center">
+            <span class="bkh__name">Brooklyn Hospital Center</span>
+            <span class="bkh__hood"><svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M6 0a6 6 0 0 0-6 6c0 4.2 6 8 6 8s6-3.8 6-8a6 6 0 0 0-6-6Zm0 8.2A2.2 2.2 0 1 1 6 3.8a2.2 2.2 0 0 1 0 4.4Z"/></svg>Fort Greene</span>
+            <svg class="bkh__arrow" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" d="M4 10h11m-4-4 4 4-4 4"/></svg>
+          </a></li>
+          <li><a class="bkh__row" href="/brooklyn-hospital-guide#maimonides">
+            <span class="bkh__name">Maimonides Medical Center</span>
+            <span class="bkh__hood"><svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M6 0a6 6 0 0 0-6 6c0 4.2 6 8 6 8s6-3.8 6-8a6 6 0 0 0-6-6Zm0 8.2A2.2 2.2 0 1 1 6 3.8a2.2 2.2 0 0 1 0 4.4Z"/></svg>Borough Park</span>
+            <svg class="bkh__arrow" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" d="M4 10h11m-4-4 4 4-4 4"/></svg>
+          </a></li>
+          <li><a class="bkh__row" href="/brooklyn-hospital-guide#brooklyn-methodist">
+            <span class="bkh__name">NewYork-Presbyterian Brooklyn Methodist</span>
+            <span class="bkh__hood"><svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M6 0a6 6 0 0 0-6 6c0 4.2 6 8 6 8s6-3.8 6-8a6 6 0 0 0-6-6Zm0 8.2A2.2 2.2 0 1 1 6 3.8a2.2 2.2 0 0 1 0 4.4Z"/></svg>Park Slope</span>
+            <svg class="bkh__arrow" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" d="M4 10h11m-4-4 4 4-4 4"/></svg>
+          </a></li>
+          <li><a class="bkh__row" href="/brooklyn-hospital-guide#nyu-langone-brooklyn">
+            <span class="bkh__name">NYU Langone Hospital – Brooklyn</span>
+            <span class="bkh__hood"><svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M6 0a6 6 0 0 0-6 6c0 4.2 6 8 6 8s6-3.8 6-8a6 6 0 0 0-6-6Zm0 8.2A2.2 2.2 0 1 1 6 3.8a2.2 2.2 0 0 1 0 4.4Z"/></svg>Sunset Park</span>
+            <svg class="bkh__arrow" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" d="M4 10h11m-4-4 4 4-4 4"/></svg>
+          </a></li>
+          <li><a class="bkh__row" href="/brooklyn-hospital-guide#suny-downstate">
+            <span class="bkh__name">SUNY Downstate Medical Center</span>
+            <span class="bkh__hood"><svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M6 0a6 6 0 0 0-6 6c0 4.2 6 8 6 8s6-3.8 6-8a6 6 0 0 0-6-6Zm0 8.2A2.2 2.2 0 1 1 6 3.8a2.2 2.2 0 0 1 0 4.4Z"/></svg>East Flatbush</span>
+            <svg class="bkh__arrow" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" d="M4 10h11m-4-4 4 4-4 4"/></svg>
+          </a></li>
+          <li><a class="bkh__row" href="/brooklyn-hospital-guide#wyckoff">
+            <span class="bkh__name">Wyckoff Heights Medical Center</span>
+            <span class="bkh__hood"><svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true"><path fill="currentColor" d="M6 0a6 6 0 0 0-6 6c0 4.2 6 8 6 8s6-3.8 6-8a6 6 0 0 0-6-6Zm0 8.2A2.2 2.2 0 1 1 6 3.8a2.2 2.2 0 0 1 0 4.4Z"/></svg>Bushwick</span>
+            <svg class="bkh__arrow" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" d="M4 10h11m-4-4 4 4-4 4"/></svg>
+          </a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
