@@ -1,0 +1,367 @@
+<title>Brooklyn Birth Injury Hero</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* Layout: navy hero over a faint, fading street-grid texture. Left: breadcrumb, H1, one amber call
+   button (the bold moment), three page facts. Right: a working case-review form in place of the empty card.
+   "On this page" links close the band. Single navy theme on purpose, matching the site. */
+.bkhero {
+  --navy: #10233d;
+  --navy-2: #16304f;       /* lifted navy for gradient */
+  --ink: #10233d;          /* text on white */
+  --text: #3a4759;
+  --muted: #6a778b;
+  --line: #d3dae4;
+  --paper: #ffffff;
+  --on-navy: #dfe6f0;
+  --on-navy-muted: #9fb0c6;
+  --rule-navy: rgba(255,255,255,0.14);
+  --amber: #f4b860;        /* primary action, shared with other sections */
+  --amber-hover: #f7c87f;
+  --live: #4fd18b;
+
+  --display: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --body: "Source Sans 3", "Source Sans Pro", "Segoe UI", Arial, sans-serif;
+
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  color-scheme: dark;
+  background: radial-gradient(120% 90% at 85% 10%, var(--navy-2) 0%, var(--navy) 60%);
+  color: var(--on-navy);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+body { background: #10233d; margin: 0; }
+.bkhero *, .bkhero *::before, .bkhero *::after { box-sizing: border-box; }
+
+/* Faint street grid, angled like a city map, fading out toward the copy */
+.bkhero::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  z-index: -1;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.06) 0 1px, transparent 1px 56px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0 1px, transparent 1px 132px);
+  transform: rotate(-29deg);
+  -webkit-mask-image: radial-gradient(50% 50% at 72% 46%, #000 0%, transparent 100%);
+          mask-image: radial-gradient(50% 50% at 72% 46%, #000 0%, transparent 100%);
+}
+
+.bkhero__inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding-block: clamp(40px, 6vw, 80px) 0;
+}
+.bkhero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(32px, 6vw, 80px);
+  align-items: center;
+}
+.bkhero__copy { min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+
+/* Breadcrumb */
+.bkhero__crumbs ol {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: 6px;
+  font-family: var(--display);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--on-navy-muted);
+}
+.bkhero__crumbs li + li::before { content: "/"; margin-right: 6px; opacity: .6; }
+.bkhero__crumbs a { color: inherit; text-decoration: none; }
+.bkhero__crumbs a:hover { color: #ffffff; text-decoration: underline; text-underline-offset: 3px; }
+.bkhero__crumbs [aria-current] { color: #ffffff; }
+
+.bkhero h1 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 5.2vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  text-wrap: balance;
+}
+.bkhero h1 span { display: block; color: var(--on-navy-muted); }
+.bkhero__sub {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/* Call action */
+.bkhero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; }
+.bkhero__call {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 0 26px;
+  border-radius: 6px;
+  background: var(--amber);
+  color: var(--navy);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  text-decoration: none;
+  box-shadow: 0 12px 28px -12px rgba(244, 184, 96, 0.55);
+  transition: background-color .15s ease, transform .15s ease;
+}
+.bkhero__call:hover { background: var(--amber-hover); transform: translateY(-1px); }
+.bkhero__call svg { flex: none; }
+.bkhero__status { margin: 0; display: flex; flex-direction: column; line-height: 1.35; }
+.bkhero__status b {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--display); font-weight: 600; font-size: 0.9375rem; color: #ffffff;
+}
+.bkhero__status small { font-size: 0.875rem; color: var(--on-navy-muted); padding-left: 16px; font-variant-numeric: tabular-nums; }
+.bkhero__dot { position: relative; width: 8px; height: 8px; border-radius: 50%; background: var(--live); }
+.bkhero__dot::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--live);
+  animation: bkhero-pulse 2.4s ease-out infinite;
+}
+@keyframes bkhero-pulse { 0% { transform: scale(1); opacity: .6; } 100% { transform: scale(3); opacity: 0; } }
+
+/* Facts */
+.bkhero__facts {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--rule-navy);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.bkhero__facts li { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.bkhero__facts li + li { padding-left: 16px; border-left: 1px solid var(--rule-navy); }
+.bkhero__facts b {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+}
+.bkhero__facts span { font-size: 0.875rem; line-height: 1.4; color: var(--on-navy-muted); }
+
+/* ---------- Form card ---------- */
+.bkhero__card {
+  min-width: 0;
+  background: var(--paper);
+  color: var(--text);
+  color-scheme: light;
+  border-radius: 8px;
+  padding: clamp(24px, 3vw, 32px);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.6);
+}
+.bkhero__card h2 {
+  margin: 0 0 4px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.375rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.bkhero__card > p { margin: 0 0 20px; font-size: 1rem; line-height: 1.5; }
+.bkhero__form { display: grid; gap: 14px; }
+.bkhero__field { display: grid; gap: 6px; }
+.bkhero__field label {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: var(--ink);
+}
+.bkhero__field label small { font-weight: 500; color: var(--muted); }
+.bkhero__field input,
+.bkhero__field textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: #f6f8fb;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 11px 12px;
+  transition: border-color .15s ease, background-color .15s ease;
+}
+.bkhero__field textarea { resize: vertical; min-height: 84px; }
+.bkhero__field input:focus,
+.bkhero__field textarea:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px rgba(16, 35, 61, 0.15);
+}
+.bkhero__submit {
+  margin-top: 4px;
+  min-height: 52px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--navy);
+  color: #ffffff;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color .15s ease;
+}
+.bkhero__submit:hover { background: #1c3a60; }
+.bkhero__fine {
+  margin: 0;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+/* ---------- On this page ---------- */
+.bkhero__toc {
+  margin-top: clamp(40px, 5vw, 64px);
+  border-top: 1px solid var(--rule-navy);
+  padding-block: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 6px;
+}
+.bkhero__toc-label {
+  margin-right: 10px;
+  font-family: var(--display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--on-navy-muted);
+}
+.bkhero__toc a {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--rule-navy);
+  font-family: var(--display);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+.bkhero__toc a:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.3); }
+
+.bkhero a:focus-visible,
+.bkhero button:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 3px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 920px) {
+  .bkhero__grid { grid-template-columns: minmax(0, 1fr); }
+  .bkhero::before {
+    -webkit-mask-image: radial-gradient(60% 40% at 70% 20%, #000 0%, transparent 100%);
+            mask-image: radial-gradient(60% 40% at 70% 20%, #000 0%, transparent 100%);
+  }
+}
+@media (max-width: 520px) {
+  .bkhero__call { width: 100%; justify-content: center; }
+  .bkhero__facts { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .bkhero__facts li { display: grid; grid-template-columns: 6rem minmax(0, 1fr); align-items: baseline; gap: 12px; }
+  .bkhero__facts li + li { padding-left: 0; border-left: 0; }
+  .bkhero__facts b { font-size: 1.25rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bkhero__dot::after { animation: none; }
+  .bkhero__call { transition: none; }
+}
+</style>
+
+<section class="bkhero" aria-labelledby="bkhero-title">
+  <div class="bkhero__inner">
+    <div class="bkhero__grid">
+
+      <div class="bkhero__copy">
+        <nav class="bkhero__crumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/new-york">New York</a></li>
+            <li><span aria-current="page">Brooklyn</span></li>
+          </ol>
+        </nav>
+
+        <h1 id="bkhero-title">Birth injuries in <span>Brooklyn, New York</span></h1>
+
+        <p class="bkhero__sub">For Brooklyn families whose baby was hurt during labor or delivery. Call us any time, or ask for a free case review.</p>
+
+        <div class="bkhero__cta">
+          <a class="bkhero__call" href="tel:+18339924784">
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8Z"/></svg>
+            Call 833-99-BIRTH
+          </a>
+          <p class="bkhero__status">
+            <b><span class="bkhero__dot" aria-hidden="true"></span>Available 24/7</b>
+            <small>(833) 992-4784</small>
+          </p>
+        </div>
+
+        <ul class="bkhero__facts">
+          <li><b>10</b><span>Brooklyn hospitals with labor and delivery</span></li>
+          <li><b>90 days</b><span>Notice of Claim deadline for public hospitals</span></li>
+          <li><b>$0</b><span>No fees unless we win</span></li>
+        </ul>
+      </div>
+
+      <aside class="bkhero__card" aria-labelledby="bkhero-form-title">
+        <h2 id="bkhero-form-title">Get a free case review</h2>
+        <p>Tell us a little about what happened and we'll call you back.</p>
+        <form class="bkhero__form" id="bkhero-form" action="/case-review" method="post">
+          <div class="bkhero__field">
+            <label for="bkhero-name">Your name</label>
+            <input id="bkhero-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="bkhero__field">
+            <label for="bkhero-phone">Phone number</label>
+            <input id="bkhero-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
+          </div>
+          <div class="bkhero__field">
+            <label for="bkhero-story">What happened? <small>(optional)</small></label>
+            <textarea id="bkhero-story" name="story" rows="3" placeholder="For example: hospital, date of birth, your child's diagnosis"></textarea>
+          </div>
+          <button class="bkhero__submit" id="bkhero-submit" type="submit">Request my free review</button>
+          <p class="bkhero__fine">
+            <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" d="M15 8h-1V6a4 4 0 1 0-8 0v2H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1Zm-7-2a2 2 0 1 1 4 0v2H8V6Z"/></svg>
+            Free and confidential. No obligation.
+          </p>
+        </form>
+      </aside>
+
+    </div>
+
+    <nav class="bkhero__toc" aria-label="On this page">
+      <span class="bkhero__toc-label">On this page</span>
+      <a href="#locations">Other NY locations</a>
+      <a href="#hospitals">Hospitals</a>
+      <a href="#what-happens-next">What happens next</a>
+      <a href="#results">Results</a>
+      <a href="#guide">Our guide</a>
+    </nav>
+  </div>
+</section>
+
+<script>
+  /* Preview only: this mockup has no intake system behind it. Remove on the live site. */
+  document.getElementById('bkhero-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var b = document.getElementById('bkhero-submit');
+    b.textContent = 'Preview only: form not connected';
+    b.disabled = true;
+  });
+</script>
